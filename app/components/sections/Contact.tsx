@@ -1,25 +1,102 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiMail, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  useEffect(() => {
+    // Initialize EmailJS with your public key
+    emailjs.init("kUSxdZ7Ykk2z7ERo8"); // Replace with your actual public key from EmailJS dashboard
+  }, []);
+
   const [formState, setFormState] = useState({
     name: '',
     email: '',
     message: ''
   });
 
+  const [errors, setErrors] = useState({
+    email: ''
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Email validation function
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
+
+  // Handle input change with validation
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormState(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear error when user starts typing
+    if (name === 'email') {
+      setErrors(prev => ({
+        ...prev,
+        email: ''
+      }));
+    }
+  };
+
+  // Handle email blur for validation
+  const handleEmailBlur = () => {
+    if (formState.email && !validateEmail(formState.email)) {
+      setErrors(prev => ({
+        ...prev,
+        email: 'Please enter a valid email address'
+      }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate email before submission
+    if (!validateEmail(formState.email)) {
+      setErrors(prev => ({
+        ...prev,
+        email: 'Please enter a valid email address'
+      }));
+      return;
+    }
+
     setIsSubmitting(true);
-    // Add your form submission logic here
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setFormState({ name: '', email: '', message: '' });
+    setSubmitStatus('idle');
+
+    const templateParams = {
+      from_name: formState.name,
+      from_email: formState.email,
+      to_name: "Aman Mandal",
+      message: formState.message,
+      reply_to: formState.email,
+    };
+
+    try {
+      await emailjs.send(
+        "service_roi6rvb",
+        "template_ft06z0n",
+        templateParams,
+        "kUSxdZ7Ykk2z7ERo8"
+      );
+
+      setSubmitStatus('success');
+      setFormState({ name: '', email: '', message: '' });
+      setErrors({ email: '' });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -73,8 +150,9 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   value={formState.name}
-                  onChange={(e) => setFormState(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg 
                            text-white placeholder-gray-400 focus:outline-none focus:ring-2 
                            focus:ring-blue-500 focus:border-transparent transition-all duration-300"
@@ -89,14 +167,26 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   value={formState.email}
-                  onChange={(e) => setFormState(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg 
+                  onChange={handleInputChange}
+                  onBlur={handleEmailBlur}
+                  className={`w-full px-4 py-3 bg-white/5 border rounded-lg 
                            text-white placeholder-gray-400 focus:outline-none focus:ring-2 
-                           focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                           focus:ring-blue-500 focus:border-transparent transition-all duration-300
+                           ${errors.email ? 'border-red-500' : 'border-white/10'}`}
                   placeholder="your@email.com"
                   required
                 />
+                {errors.email && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-500 text-sm mt-1"
+                  >
+                    {errors.email}
+                  </motion.p>
+                )}
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
@@ -104,8 +194,9 @@ const Contact = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   value={formState.message}
-                  onChange={(e) => setFormState(prev => ({ ...prev, message: e.target.value }))}
+                  onChange={handleInputChange}
                   rows={5}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg 
                            text-white placeholder-gray-400 focus:outline-none focus:ring-2 
@@ -117,7 +208,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !!errors.email}
                 className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 
                          text-white rounded-lg font-medium relative overflow-hidden 
                          transform hover:scale-[1.02] transition-all duration-300
@@ -132,6 +223,26 @@ const Contact = () => {
                   </div>
                 )}
               </button>
+              
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-green-400 text-sm mt-2 text-center"
+                >
+                  Message sent successfully! I'll get back to you soon.
+                </motion.div>
+              )}
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-sm mt-2 text-center"
+                >
+                  Failed to send message. Please try again later.
+                </motion.div>
+              )}
             </form>
           </motion.div>
 

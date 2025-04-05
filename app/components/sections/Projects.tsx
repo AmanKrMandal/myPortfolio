@@ -108,10 +108,20 @@ const cardVariants = {
     }
   }),
   hover: {
-    y: -10,
+    scale: 1.02,
     transition: {
       duration: 0.3,
       ease: [0.48, 0.15, 0.25, 0.96]
+    }
+  }
+};
+
+const tagVariants = {
+  hover: {
+    scale: 1.1,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut"
     }
   }
 };
@@ -137,16 +147,26 @@ const Projects = () => {
 
   return (
     <section className="relative py-32 overflow-hidden" id="projects" ref={ref}>
-      {/* Animated background */}
+      {/* Enhanced animated background */}
       <motion.div 
         className="absolute inset-0 bg-slate-900"
         style={{ opacity }}
       >
         <motion.div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: 'linear-gradient(to right, rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(59,130,246,0.1) 1px, transparent 1px)',
-            backgroundSize: '4rem 4rem',
+            backgroundImage: 'radial-gradient(circle at center, rgba(59,130,246,0.1) 0%, transparent 70%)',
+            backgroundSize: '50px 50px',
+            y: backgroundY
+          }}
+        />
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(45deg, rgba(59,130,246,0.05) 25%, transparent 25%, transparent 75%, rgba(59,130,246,0.05) 75%, rgba(59,130,246,0.05)), linear-gradient(45deg, rgba(59,130,246,0.05) 25%, transparent 25%, transparent 75%, rgba(59,130,246,0.05) 75%, rgba(59,130,246,0.05))',
+            backgroundSize: '60px 60px',
+            backgroundPosition: '0 0, 30px 30px',
+            opacity: 0.1,
             y: backgroundY
           }}
         />
@@ -249,129 +269,125 @@ const Projects = () => {
                 initial="hidden"
                 animate="visible"
                 whileHover="hover"
-                className="group relative"
+                onHoverStart={() => setActiveProject(index)}
+                onHoverEnd={() => setActiveProject(null)}
+                className="group relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-xl overflow-hidden 
+                         backdrop-blur-sm border border-slate-700/50 transition-all duration-300
+                         hover:border-slate-600/50 hover:shadow-[0_0_30px_-5px_rgba(51,65,85,0.5)]"
               >
-                {/* Project Card */}
-                <div className="relative bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700/50
-                              backdrop-blur-sm transition-all duration-500 group-hover:border-amber-200/30
-                              group-hover:shadow-[0_0_30px_-5px_rgba(252,211,77,0.3)]">
-                
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={800}
-                      height={600}
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent 
-                                  opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-100/10 via-orange-100/10 to-transparent 
-                                  opacity-0 group-hover:opacity-100 transition-all duration-500
-                                  backdrop-blur-[2px] group-hover:backdrop-blur-[1px]" />
-                  </div>
+                {/* Project Image with enhanced overlay */}
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-all duration-500 group-hover:scale-110"
+                  />
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent
+                             opacity-60 group-hover:opacity-40 transition-all duration-500"
+                  />
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-br from-slate-400/10 via-slate-500/10 to-transparent
+                             opacity-0 group-hover:opacity-100 transition-all duration-500
+                             backdrop-blur-[1px]"
+                  />
+                </div>
 
-                  {/* Project Info */}
-                  <div className="p-6 relative z-10">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors duration-500">
-                        {project.title}
-                      </h3>
-                      <motion.div
-                        whileHover={{ rotate: -45 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <FiArrowRight className="w-5 h-5 text-blue-400 opacity-0 group-hover:opacity-100 
-                                               transition-all duration-500 group-hover:translate-x-1" />
-                      </motion.div>
-                    </div>
+                {/* Project Content with enhanced animations */}
+                <div className="p-6 relative">
+                  <motion.div
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                    className="flex items-center justify-between mb-3"
+                  >
+                    <h3 className="text-xl font-bold text-white group-hover:text-slate-200 transition-colors">
+                      {project.title}
+                    </h3>
+                    <motion.div
+                      whileHover={{ rotate: -45 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <FiArrowRight className="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 
+                                           transition-all duration-300 transform group-hover:translate-x-1" />
+                    </motion.div>
+                  </motion.div>
 
-                    <p className="text-gray-400 mb-4 line-clamp-2 group-hover:text-gray-300 transition-colors duration-500">
-                      {project.description}
-                    </p>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 group-hover:text-gray-300 transition-colors">
+                    {project.description}
+                  </p>
 
                   {/* Project Stats */}
                   <div className="flex items-center gap-4 mb-4">
                     <motion.div
                       whileHover={{ scale: 1.1 }}
-                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-700/30 px-2 py-1 rounded-full
-                               group-hover:bg-yellow-500/10 group-hover:text-yellow-300 transition-all duration-500"
+                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-800/50 px-2 py-1 rounded-full"
                     >
-                      <FiStar className="w-4 h-4 text-yellow-400" />
+                      <FiStar className="w-4 h-4 text-amber-400" />
                       <span>{project.stats.stars}</span>
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.1 }}
-                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-700/30 px-2 py-1 rounded-full
-                               group-hover:bg-green-500/10 group-hover:text-green-300 transition-all duration-500"
+                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-800/50 px-2 py-1 rounded-full"
                     >
-                      <FiGitBranch className="w-4 h-4 text-green-400" />
+                      <FiGitBranch className="w-4 h-4 text-emerald-400" />
                       <span>{project.stats.forks}</span>
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.1 }}
-                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-700/30 px-2 py-1 rounded-full
-                               group-hover:bg-purple-500/10 group-hover:text-purple-300 transition-all duration-500"
+                      className="flex items-center gap-1 text-sm text-gray-400 bg-slate-800/50 px-2 py-1 rounded-full"
                     >
                       <FiFolder className="w-4 h-4 text-purple-400" />
                       <span>{project.stats.size}</span>
                     </motion.div>
                   </div>
 
-                  {/* Tags */}
+                  {/* Tags with hover animations */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map(tag => (
+                    {project.tags.map((tag, tagIndex) => (
                       <motion.span
-                        key={tag}
-                        whileHover={{ scale: 1.1 }}
-                        className="px-3 py-1 text-xs font-medium bg-blue-500/10 text-blue-300 rounded-full
-                                 transition-all duration-500 hover:bg-blue-500/20 
-                                 group-hover:shadow-[0_0_10px_-2px_rgba(59,130,246,0.3)]"
+                        key={tagIndex}
+                        variants={tagVariants}
+                        whileHover="hover"
+                        className="px-2 py-1 text-xs rounded-full text-slate-300 bg-slate-800/50
+                                 border border-slate-700/50 transition-colors hover:border-slate-600/50"
                       >
                         {tag}
                       </motion.span>
                     ))}
                   </div>
 
-                  {/* Links */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-slate-700/50 group-hover:border-blue-500/20">
+                  {/* Links with enhanced hover effects */}
+                  <div className="flex items-center gap-4 pt-4 border-t border-slate-700/50">
                     <motion.a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-500
-                               group-hover:text-blue-300"
+                      className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
                     >
                       <FiGithub className="w-5 h-5" />
-                      <span>Code</span>
+                      <span className="text-sm">Code</span>
                     </motion.a>
                     <motion.a
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-500
-                               group-hover:text-blue-300"
+                      className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
                     >
                       <FiExternalLink className="w-5 h-5" />
-                      <span>Live Demo</span>
+                      <span className="text-sm">Live Demo</span>
                     </motion.a>
                   </div>
-                </div>
 
-                  {/* Card glow effect */}
-                  <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 
-                                group-hover:opacity-20 blur-md transition-all duration-500 -z-10" />
-                  
-                  {/* Animated corner accents */}
-                  <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-                  <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-purple-500/20 to-transparent 
-                              opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                  {/* Decorative corner accents */}
+                  <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-slate-400/10 to-transparent 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+                  <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-slate-400/10 to-transparent 
+                               opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
                 </div>
               </motion.div>
             ))}

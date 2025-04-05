@@ -20,11 +20,9 @@ const socialLinks = [
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
       
       const sections = navItems.map(item => item.href.substring(1));
       const currentSection = sections.find(section => {
@@ -70,7 +68,7 @@ const Navbar = () => {
       <motion.div 
         className="absolute inset-0"
         animate={{
-          backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.5)',
+          backgroundColor:  'rgba(0, 0, 0, 0.85)' ,
         }}
         style={{
           backdropFilter: 'blur(8px)',
@@ -78,16 +76,16 @@ const Navbar = () => {
         }}
       >
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-sky-500/20 to-violet-500/20"
+          className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20"
           animate={{
-            opacity: isScrolled ? 0.8 : 0.4
+            opacity: 0.8
           }}
           transition={{ duration: 0.3 }}
         />
         <motion.div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 50% -20%, rgba(120,255,215,0.15), transparent 70%)',
+            background: 'radial-gradient(circle at 50% -20%, rgba(59,130,246,0.15), transparent 70%)',
           }}
         />
       </motion.div>
@@ -113,9 +111,9 @@ const Navbar = () => {
                     className="absolute inset-0"
                     animate={{
                       background: [
-                        'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.3), transparent 50%)',
+                        'radial-gradient(circle at 30% 30%, rgba(59,130,246,0.3), transparent 50%)',
                         'radial-gradient(circle at 70% 70%, rgba(139,92,246,0.3), transparent 50%)',
-                        'radial-gradient(circle at 30% 30%, rgba(16,185,129,0.3), transparent 50%)',
+                        'radial-gradient(circle at 30% 30%, rgba(59,130,246,0.3), transparent 50%)',
                       ],
                     }}
                     transition={{
@@ -286,8 +284,8 @@ const Navbar = () => {
                             layoutId="activeNavItem"
                             className="absolute inset-0 rounded-lg"
                             style={{
-                              background: 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(14,165,233,0.2) 50%, rgba(139,92,246,0.2) 100%)',
-                              boxShadow: '0 0 20px rgba(16,185,129,0.15)',
+                              background: 'linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(139,92,246,0.2) 50%, rgba(59,130,246,0.2) 100%)',
+                              boxShadow: '0 0 20px rgba(59,130,246,0.15)',
                             }}
                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                           />
@@ -295,7 +293,7 @@ const Navbar = () => {
                         <motion.span
                           className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(14,165,233,0.1) 50%, rgba(139,92,246,0.1) 100%)',
+                            background: 'linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 50%, rgba(59,130,246,0.1) 100%)',
                           }}
                         />
                       </button>
@@ -346,7 +344,7 @@ const Navbar = () => {
                   <motion.div
                     className="absolute inset-0"
                     style={{
-                      background: 'linear-gradient(135deg, rgb(16,185,129) 0%, rgb(14,165,233) 50%, rgb(139,92,246) 100%)',
+                      background: 'linear-gradient(135deg, rgb(59,130,246) 0%, rgb(139,92,246) 50%, rgb(59,130,246) 100%)',
                     }}
                     variants={{
                       hover: { 
@@ -501,7 +499,7 @@ const Navbar = () => {
                   <motion.div
                     className="absolute inset-0"
                     style={{
-                      background: 'linear-gradient(135deg, rgb(16,185,129) 0%, rgb(14,165,233) 50%, rgb(139,92,246) 100%)',
+                      background: 'linear-gradient(135deg, rgb(59,130,246) 0%, rgb(139,92,246) 50%, rgb(59,130,246) 100%)',
                     }}
                   />
                   <span className="relative z-10">Let's Talk</span>
