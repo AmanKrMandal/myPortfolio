@@ -41,12 +41,12 @@ const projects = [
     description: 'Creative frontend engineer crafting high-performance, scalable web apps with React, Next.js, and modern UI for seamless user experiences.',
     image: '/images/portfolio.png',
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer-motion', 'HTML', 'CSS'],
-    github: 'https://github.com',
-    live: 'https://project.com',
+    github: 'https://github.com/AmanKrMandal/myPortfolio',
+    live: 'https://www.amankr.info',
     category: 'Frontend',
     stats: {
-      stars: '156',
-      forks: '42',
+      stars: '2',
+      forks: '4',
       size: '3.1MB'
     }
   },
@@ -68,13 +68,13 @@ const projects = [
     title: 'Weather Application',
     description: 'Beautiful weather app with animated visualizations.',
     image: 'https://picsum.photos/800/600?random=5',
-    tags: ['React.js', 'CSS', 'Weather API', 'SCSS'],
+    tags: ['React.js', 'CSS', 'Weather API', 'SCSS', 'html'],
     github: 'https://github.com/AmanKrMandal/Weather-project',
     live: 'https://weather-aman-mandal.netlify.app/',
     category: 'Frontend',
     stats: {
-      stars: '95',
-      forks: '28',
+      stars: '1',
+      forks: '2',
       size: '1.5MB'
     }
   },
@@ -82,13 +82,13 @@ const projects = [
     title: 'IMDB Rating App',
     description: 'IMDb rating is a score out of 10 that reflects the average user rating for a movie or show, indicating its popularity and quality.',
     image: '/images/urlshortnerv3.png',
-    tags: ['React', 'api integration', 'Bootstrap', 'scss'],
+    tags: ['React', 'api integration', 'Bootstrap', 'scss', 'html'],
     github: 'https://github.com/AmanKrMandal/IMDB-Rating',
     live: 'https://imdb-rating-aman.netlify.app/',
     category: 'Frontend',
     stats: {
-      stars: '178',
-      forks: '47',
+      stars: '3',
+      forks: '1',
       size: '2.9MB'
     }
   }
