@@ -609,7 +609,7 @@ const About = () => {
                       title: "SQL Database",
                       platform: "Coursera",
                       date: "2023",
-                      link: "https://coursera.org/share/e0d1f89e1f4c44e0d5c8a4a8b0b3f8c0",
+                      link: "https://www.coursera.org/account/accomplishments/verify/MV8ML4W9FPVD",
                       icon: FiDatabase,
                       gradient: "from-amber-400 to-orange-500"
                     },
@@ -617,7 +617,7 @@ const About = () => {
                       title: "AWS Lambda",
                       platform: "Udemy",
                       date: "2023",
-                      link: "https://udemy.com/certificate/UC-f8c0b3f8-e0d1-4f89-1f4c-44e0d5c8a4a8",
+                      link: "https://udemy-certificate.s3.amazonaws.com/pdf/UC-a0ad0134-a381-430a-9691-cad891d2f931.pdf",
                       icon: FiCloud,
                       gradient: "from-amber-400 to-orange-500"
                     },
@@ -625,7 +625,7 @@ const About = () => {
                       title: "Generative AI",
                       platform: "Udemy",
                       date: "2023",
-                      link: "https://udemy.com/certificate/UC-a4a8b0b3-f8c0-e0d1-4f89-1f4c44e0d5c8",
+                      link: "https://udemy-certificate.s3.amazonaws.com/pdf/UC-239177a9-cabf-469a-809c-3b5db2a11969.pdf",
                       icon: BsRobot,
                       gradient: "from-amber-400 to-orange-500"
                     },
@@ -633,7 +633,7 @@ const About = () => {
                       title: "JavaScript: ES6",
                       platform: "Coursera",
                       date: "2023",
-                      link: "https://coursera.org/share/44e0d5c8a4a8b0b3f8c0e0d1f89e1f4c",
+                      link: "https://www.coursera.org/account/accomplishments/verify/5YFG2AMQUZY2",
                       icon: FiCode,
                       gradient: "from-amber-400 to-orange-500"
                     }
