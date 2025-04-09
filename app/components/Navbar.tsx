@@ -471,7 +471,7 @@ const Navbar = () => {
 
               <div className="mt-4 grid gap-3 px-4">
                 <motion.a
-                  href="https://drive.google.com/file/d/1QyL64Fa71RUnp2FhJEm56TdX5eGo33Sv/view?usp=drivesdk"
+                  href="https://drive.google.com/file/d/1WashLtvF7vhbNVY38SoJhZkOa9Hccyg1/view?usp=drivesdk"
                   download
                   className="block py-3 text-center text-sm font-medium text-zinc-300 rounded-lg group relative overflow-hidden"
                   whileHover={{ scale: 1.02 }}
