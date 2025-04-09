@@ -305,7 +305,7 @@ const Navbar = () => {
               {/* Action Buttons */}
               <div className="flex items-center gap-3">
                 <motion.a
-                  href="https://drive.google.com/file/d/1QyL64Fa71RUnp2FhJEm56TdX5eGo33Sv/view?usp=drivesdk"
+                  href="https://drive.google.com/file/d/1WashLtvF7vhbNVY38SoJhZkOa9Hccyg1/view?usp=drivesdk"
                   download
                   className="relative px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white rounded-lg group overflow-hidden"
                   whileHover={{ scale: 1.02 }}
